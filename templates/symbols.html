@@ -1,0 +1,48 @@
+<html>
+<head>
+    <style>
+        body { font-family: arial; margin: 20px }
+        td { padding: 10px; }
+        .bullish { background: green; color: white; }
+        .bearish { background: red; color: white; }
+    </style>
+</head>
+<body>
+    <h1>
+        Candlestick Screener
+    </h1>
+    <form>
+        <select name="pattern">
+            {% for symbol in symbols %}
+                <option value="{{ symbol }}" {% if symbol == current_symbol %} selected="selected" {% endif %}>{{ symbols[symbol] }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="scan">
+    </form>
+    <table>
+        <tr>
+            <th>
+                symbol
+            </th>
+            <th>
+                signal
+            </th>
+        </tr>
+
+    {% for result in results %}
+        {% for pattern in patterns %}
+            {% if result == pattern %}
+                <tr>
+                    <td>{{ patterns[pattern] }}</td>
+                    <td class="{{ results[result] }}">{{ results[result] }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+    </table>
+
+     <img src="/static/{{ current_symbol }}.png" />
+
+</body>
+</html>
